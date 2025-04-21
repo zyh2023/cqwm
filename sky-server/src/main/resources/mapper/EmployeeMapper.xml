@@ -3,7 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.EmployeeMapper">
     <update id="update">
-        update employee <set> status = #{status},
+        update employee <set>
+                            <if test="status != null">
+                                name = #{status},
+                            </if>
                             <if test="name != null">
                                 name = #{name},
                             </if>
