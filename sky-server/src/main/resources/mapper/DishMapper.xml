@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.DishMapper">
+<!--    删除菜品    -->
+    <delete id="deleteBatch">
+        delete  from dish where id in
+        <foreach collection="ids" item="id" close=")" open="(" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    <!--    列表查询    -->
+    <select id="list" resultType="com.sky.vo.DishVO">
+        select t1.*, t2.name categoryName from dish t1, category t2 where t1.category_id = t2.id
+        <if test="name != null">
+            and t1.name like concat('%',#{name},'%')
+        </if>
+        <if test="name != null">
+            and t1.status = #{status}
+        </if>
+        <if test="categoryId != null ">
+            and t1.category_id = #{categoryId}
+        </if>
+        order by update_time desc
+    </select>
+    <select id="selectById" resultType="com.sky.entity.Dish">
+        select * from dish where id = #{id}
+    </select>
+</mapper>
