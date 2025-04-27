@@ -107,4 +107,24 @@ public class DishServiceImpl implements DishService {
         //构造vo对象并返回
         return dishVO;
     }
+
+    @Transactional
+    @Override
+    public void update(DishDTO dto) {
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dto,dish);
+        //1.修改菜品的基本信息dish表,在对表进行修改、更新操作时，通常传递的是表对应的实体对象，不能传递dto，因为信息不全，而查的时候可以
+        dishMapper.update(dish);
+        //2.修改口味列表信息，dish_flavor表
+        // 由于口味数据可能增加、删除、修改，因此先全部删除旧数据，然后再添加新数据
+        dishFlavorMapper.deleteByDishId(dto.getId());
+        List<DishFlavor> dishFlavors = dto.getFlavors();
+        if (dishFlavors != null && !dishFlavors.isEmpty()){
+            dishFlavors.forEach(dishFlavor -> {
+                dishFlavor.setDishId(dish.getId());
+            });
+            dishFlavorMapper.insertBatch(dishFlavors);
+        }
+    }
+
 }

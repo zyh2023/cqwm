@@ -3,16 +3,22 @@
 <mapper namespace="com.sky.mapper.DishFlavorMapper">
 <!--    批量插入    -->
     <insert id="insertBatch">
-        insert into dish_flavor values
+        insert into dish_flavor  values
         <foreach collection="dishFlavors" item="flavor" separator=",">
-            (null, #{flavor.dishId},#{flavor.name},#{flavor.value})
+            (null,#{flavor.dishId},#{flavor.name},#{flavor.value})
         </foreach>
     </insert>
+
     <delete id="deleteBatch">
-        delete from dish_flavor where id in <foreach collection="ids" item="id" open="(" close=")" separator=",">
+        delete from dish_flavor where dish_id in <foreach collection="ids" item="id" open="(" close=")" separator=",">
         #{id}
     </foreach>
     </delete>
+
+    <delete id="deleteByDishId">
+        delete from dish_flavor where dish_id = #{id}
+    </delete>
+
     <select id="selectBydish" resultType="com.sky.entity.DishFlavor">
         select * from dish_flavor where dish_id = #{dishId}
     </select>
