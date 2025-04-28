@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.SetmealMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into setmeal values (null,#{categoryId},#{name},#{price},#{status},#{description},#{image},#{createTime},#{updateTime},#{createUser},#{updateUser})
+    </insert>
+    <select id="getById" resultType="com.sky.entity.Setmeal">
+        select t1.category_id tcategoryId, t2.name categoryName, t1.price, t1.status, t1.description,t1.image ,t1.update_time updateTime from setmeal t1, category t2 where t1.category_id = t2.id and t1.id = #{id}
+    </select>
+    <select id="list" resultType="com.sky.vo.SetmealVO">
+        select t1.*, t2.name categoryName
+        from setmeal t1
+        left join category t2 on t1.category_id = t2.id
+        <where>
+            <if test="name != null and name != ''">
+                and t1.name like concat('%',#{name},'%')
+            </if>
+            <if test="categoryId != null">
+                and t1.category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                and t1.status = #{status}
+            </if>
+        </where>
+    </select>
+
+</mapper>

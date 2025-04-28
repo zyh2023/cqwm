@@ -63,4 +63,12 @@ public class DishController {
         return Result.success();
     }
 
+    @ApiOperation("根据种类id回显")
+    @GetMapping("/list")
+    public Result getByCategoryId(@RequestParam Long categoryId) {
+        log.info("根据种类回显：{}",categoryId);
+        List<DishVO> dishVOList = dishService.getByCategoryId(categoryId);
+        return Result.success(dishVOList);
+    }
+
 }

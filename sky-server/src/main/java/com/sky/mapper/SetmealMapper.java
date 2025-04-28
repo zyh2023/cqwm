@@ -1,7 +1,15 @@
 package com.sky.mapper;
 
+import com.github.pagehelper.Page;
+import com.sky.anno.AutoFill;
+import com.sky.dto.DishPageQueryDTO;
+import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.entity.Setmeal;
+import com.sky.enumeration.OperationType;
+import com.sky.vo.SetmealVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 public interface SetmealMapper {
@@ -14,4 +22,10 @@ public interface SetmealMapper {
     @Select("select count(id) from setmeal where category_id = #{categoryId}")
     Integer countByCategoryId(Long id);
 
+    @AutoFill(OperationType.INSERT)
+    void insert(Setmeal setmeal);
+
+    Setmeal getById(Long id);
+
+    Page<SetmealVO> list(SetmealPageQueryDTO dto);
 }
