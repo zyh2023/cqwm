@@ -139,4 +139,9 @@ public class DishServiceImpl implements DishService {
         return dishVOList;
     }
 
+    @Override
+    public void changeStatus(Long id, Integer status) {
+        dishMapper.changeStatus(id,status);
+    }
+
 }

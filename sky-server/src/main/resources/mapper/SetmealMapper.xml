@@ -4,8 +4,27 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into setmeal values (null,#{categoryId},#{name},#{price},#{status},#{description},#{image},#{createTime},#{updateTime},#{createUser},#{updateUser})
     </insert>
+    <update id="changeStatus">
+        update setmeal set status = #{status} where id = #{id}
+    </update>
+    <update id="update">
+        update setmeal <set>
+        <if test="name != null and name != ''">name = #{name},</if>
+        <if test="categoryId != null">category_id = #{categoryId},</if>
+        <if test="price != null">price = #{price},</if>
+        <if test="image != null">image = #{image},</if>
+        <if test="description">description= #{description},</if>
+        <if test="status != null">status = #{status},</if>
+        <if test="updateTime != null">update_time = #{updateTime},</if>
+        <if test="updateUser != null">update_user = #{updateUser},</if>
+    </set>
+        where id = #{id}
+    </update>
+    <delete id="delete">
+        delete from setmeal where id = #{id}
+    </delete>
     <select id="getById" resultType="com.sky.entity.Setmeal">
-        select t1.category_id tcategoryId, t2.name categoryName, t1.price, t1.status, t1.description,t1.image ,t1.update_time updateTime from setmeal t1, category t2 where t1.category_id = t2.id and t1.id = #{id}
+        select t1.id,t1.category_id categoryId, t2.name categoryName, t1.price, t1.status, t1.description,t1.image ,t1.update_time  updateTime ,t1.name from setmeal t1, category t2 where t1.category_id = t2.id and t1.id = #{id}
     </select>
     <select id="list" resultType="com.sky.vo.SetmealVO">
         select t1.*, t2.name categoryName

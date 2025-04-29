@@ -16,6 +16,9 @@
         </set>
         where id = #{id}
     </update>
+    <update id="changeStatus">
+        update dish set status = #{status} where id = #{id}
+    </update>
     <!--    删除菜品    -->
     <delete id="deleteBatch">
         delete  from dish where id in

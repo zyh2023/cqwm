@@ -28,4 +28,11 @@ public interface SetmealMapper {
     Setmeal getById(Long id);
 
     Page<SetmealVO> list(SetmealPageQueryDTO dto);
+
+    void changeStatus(Integer status, Long id);
+
+    void delete(Long id);
+
+    @AutoFill(OperationType.UPDATE)
+    void update(Setmeal setmeal);
 }

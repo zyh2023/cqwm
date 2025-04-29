@@ -11,4 +11,8 @@ public interface SetmealDIshMappper {
     void insertBatch(List<SetmealDish> setmealDishList);
 
     List<SetmealDish> getById(Long id);
+
+    Integer countStatus(Long id);
+
+    void delete(Long id);
 }

@@ -14,6 +14,10 @@
             (#{setmealDish.setmealId}, #{setmealDish.dishId}, #{setmealDish.name}, #{setmealDish.price}, #{setmealDish.copies})
         </foreach>
     </insert>
+    <delete id="delete">
+        delete from setmeal_dish where setmeal_id = #{id}
+    </delete>
+
 
     <select id="countByDishId" resultType="java.lang.Integer">
         select count(*) from setmeal_dish where dish_id in
@@ -25,5 +29,8 @@
     </select>
     <select id="getById" resultType="com.sky.entity.SetmealDish">
         select * from setmeal_dish where setmeal_id = #{id}
+    </select>
+    <select id="countStatus" resultType="java.lang.Integer">
+        select count(*) from setmeal_dish t1, dish t2 where t1.dish_id = t2.id and t2.status = 0 and t1.setmeal_id = #{id}
     </select>
 </mapper>
