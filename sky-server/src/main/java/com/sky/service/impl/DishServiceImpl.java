@@ -55,11 +55,14 @@ public class DishServiceImpl implements DishService {
         //2.构造菜品口味列表数据，将其存入dish——flavor表中
         List<DishFlavor> dishFlavors = dto.getFlavors();
         //2.1关联菜品id
-        dishFlavors.forEach(dishFlavor -> {
-            dishFlavor.setDishId(dish.getId());
-        });
-        //2.2 调用mapper方法
-        dishFlavorMapper.insertBatch(dishFlavors);
+        if (dishFlavors != null && !dishFlavors.isEmpty()) {
+            dishFlavors.forEach(dishFlavor -> {
+                dishFlavor.setDishId(dish.getId());
+            });
+            //2.2 调用mapper方法
+            dishFlavorMapper.insertBatch(dishFlavors);
+        }
+
     }
 
     @Override
