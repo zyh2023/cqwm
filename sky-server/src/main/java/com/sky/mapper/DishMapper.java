@@ -41,4 +41,6 @@ public interface DishMapper {
     List<Dish> selectByCategoryId(Long categoryId);
 
     void changeStatus(Long id, Integer status);
+
+    List<Dish> listBy(Dish dish);
 }
