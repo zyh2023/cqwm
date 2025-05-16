@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface OrdersMapper {
     void insert(Orders orders);
@@ -35,4 +36,7 @@ public interface OrdersMapper {
 
     @Select("select count(id) from orders where status = #{status}")
     Integer countStatus(Integer status);
+
+    @Select("select * from orders where status = #{pendingPayment} and order_time < #{time}")
+    List<Orders> selectByStatusAndOrderTime(Integer pendingPayment, LocalDateTime time);
 }
