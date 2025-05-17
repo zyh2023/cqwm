@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Map;
+
 public interface UserMapper {
     @Select("select * from user where openid = #{openid}")
     User selectByOpenid(String openid);
@@ -15,4 +17,6 @@ public interface UserMapper {
 
     @Select("select * from user where id = #{userId}")
     User selectById(Long userId);
+
+    Integer coutByMap(Map map);
 }
